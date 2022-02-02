@@ -1,0 +1,92 @@
+﻿@using AbbyRestaurant.Utility
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AbbyRestaurantWeb</title>
+    <link rel="stylesheet" href="~/css/bootswatch_cyborg.css" />
+    <link rel="stylesheet" href="~/AbbyRestaurantWeb.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">Abby Restaurant</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
+                        </li>
+                        @if(User.IsInRole(SD.ManagerRole) || User.IsInRole(SD.FrontDeskRole))
+                        {
+                             <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Admin/Order/OrderList">Order List</a>
+                            </li>
+                        }
+                        @if(User.IsInRole(SD.ManagerRole) || User.IsInRole(SD.KitchenRole))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Admin/Order/ManageOrder">Manage Order</a>
+                            </li>
+                        }
+                        @if (User.IsInRole(SD.ManagerRole))
+                        {
+                             <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+                                <div class="dropdown-menu">
+                                   <a class="dropdown-item" asp-area="" asp-page="/Admin/Categories/Index">Categories</a>
+                                   <a class="dropdown-item" asp-area="" asp-page="/Admin/FoodTypes/Index">FoodTypes</a>
+                                   <a class="dropdown-item" asp-area="" asp-page="/Admin/MenuItems/Index">MenuItems</a>
+                                    <div class="dropdown-divider">
+                                    </div>
+                                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register Employee</a>
+                                </div>
+                            </li> 
+                        }
+                       
+                        <li>
+                            <a class="nav-link" asp-area="" asp-page="/Customer/Cart/Index">
+                                @await Component.InvokeAsync("ShoppingCart")
+                            </a>
+                        </li>
+                    </ul>
+                    <partial name="_Loginpartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <partial name="_Notification" />
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer text-muted bg-primary">
+        <div class="container">
+            &copy; 2022 - Abby Restaurant
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.tiny.cloud/1/ct38ppnlwapj7lbymhh4xxd2e4912u5o8jfczbgdq8iwi33r/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,68 @@
+﻿@page
+@model AbbyRestaurantWeb.Pages.Customer.Home.DetailsModel
+
+
+<div class="">  
+    <form method="post">
+        <input asp-for="ShoppingCart.MenuItemId" hidden />
+        <input asp-for="ShoppingCart.ApplicationUserId" hidden />
+        <div class="container">
+            <div class="card">
+                <div class="card-header text-light container">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <h1>@Model.ShoppingCart.MenuItem.Name</h1>
+                        </div>
+                        <div class="col-12 col-md-6 text-md-end">
+                            <h1 class="text-dark">$@Model.ShoppingCart.MenuItem.Price</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="container rounded p-2">
+                        <div class="row">
+                            <div class="col-12 col-lg-8">
+                                <div class="row">
+
+                                    <div class="col-12">
+                                        <span class="badge bg-info p-1">@Model.ShoppingCart.MenuItem.Category.Name</span>
+                                        <span class="badge bg-success p-1">@Model.ShoppingCart.MenuItem.FoodType.Name</span>
+                                        <h3 class="text-success"></h3>
+
+                                        <div class="text-secondary bg-transparent">@Html.Raw(Model.ShoppingCart.MenuItem.Description)</div>
+
+                                        <div class="form-floating my-2">
+                                            <input asp-for="ShoppingCart.Count" class="form-control" aria-required="true" />
+                                            <label asp-for="ShoppingCart.Count"></label>
+                                            <span asp-validation-for="ShoppingCart.Count" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4 p-1 text-center">
+                                <img src="@Model.ShoppingCart.MenuItem.Image" alt="@Model.ShoppingCart.MenuItem.Name" width="100%" class="rounded" />
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-12 col-md-6 pb-1 ">
+                            <a class="btn btn-secondary btn-square form-control btn-lg" style="height:50px;">Back to List</a>
+                        </div>
+                        <div class="col-12 col-md-6 ">
+                            <button type="submit" class="btn btn-primary btn-square form-control btn-lg" style="height:50px;">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
