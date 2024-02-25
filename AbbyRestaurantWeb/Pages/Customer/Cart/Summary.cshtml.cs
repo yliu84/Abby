@@ -88,7 +88,7 @@ namespace AbbyRestaurantWeb.Pages.Customer.Cart
 
                 
 
-                var domain = "https://localhost:7089";
+                var domain = "https://abbyfoodweb.azurewebsites.net/";
                 var options = new SessionCreateOptions
                 {
                     LineItems = new List<SessionLineItemOptions>(),
